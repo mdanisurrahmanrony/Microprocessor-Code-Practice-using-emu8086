@@ -1,0 +1,29 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+M1 DB "ENTER ANY NUMBER/CHARACTER, BLANK SPACE TO STOP:$"
+
+.CODE
+MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    MOV AH,9H
+    LEA DX,M1
+    INT 21H
+    
+    MOV AH,1H
+    
+    L:
+    INT 21H
+    CMP AL," "
+    JE END
+    JMP L
+    
+    END:
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN

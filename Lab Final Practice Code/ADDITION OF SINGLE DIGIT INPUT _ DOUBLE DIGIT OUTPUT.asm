@@ -1,0 +1,59 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+M1 DB "ENTER FIRST NUMBER: $"
+M2 DB 10,10,13,"ENTER SECOND NUMBER: $"
+M3 DB 10,10,13,"ADDITION OF TWO NUMBERS IS: $"
+
+N1 DB ?,"$"
+N2 DB ?,"$"
+
+.CODE
+
+MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    MOV AH,9H
+    LEA DX,M1
+    INT 21H
+    
+    MOV AH,1H
+    INT 21H
+    SUB AL,30H
+    MOV N1,AL
+    
+    MOV AH,9H
+    LEA DX,M2
+    INT 21H
+    
+    MOV AH,1H
+    INT 21H
+    SUB AL,30H
+    MOV N2,AL
+    
+    MOV AH,0H
+    ADD AL,N1
+    AAA
+    
+    MOV BX,AX
+    ADD BX,3030H
+    
+    MOV AH,9H
+    LEA DX,M3
+    INT 21H
+    
+    MOV AH,2H
+    MOV DL,BH
+    INT 21H
+    
+    MOV AH,2H
+    MOV DL,BL
+    INT 21H
+    
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN
